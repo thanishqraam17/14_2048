@@ -1,6 +1,7 @@
 import random
 
 SIZE = 4
+WIN_TILE = 2048
 
 
 class Board:
@@ -80,6 +81,9 @@ class Board:
                 self.grid[r][c] = new[r]
             changed |= old != new
         return changed
+
+    def has_won(self):
+        return any(tile >= WIN_TILE for row in self.grid for tile in row)
 
     def can_move(self):
         if any(0 in row for row in self.grid):
