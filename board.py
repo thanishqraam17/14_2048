@@ -82,6 +82,15 @@ class Board:
             changed |= old != new
         return changed
 
+    def snapshot(self):
+        """Copy of the current state (grid + score) for one-level undo."""
+        return [row[:] for row in self.grid], self.score
+
+    def restore(self, snap):
+        grid, score = snap
+        self.grid = [row[:] for row in grid]
+        self.score = score
+
     def has_won(self):
         return any(tile >= WIN_TILE for row in self.grid for tile in row)
 
